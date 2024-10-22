@@ -23,6 +23,7 @@
   "rules": {
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "import/prefer-default-export": "off",
     // "@typescript-eslint/interface-name-prefix": "off", // set by default by nest
     // "@typescript-eslint/explicit-function-return-type": "off", // set by default by nest
     // "@typescript-eslint/explicit-module-boundary-types": "off", // set by default by nest

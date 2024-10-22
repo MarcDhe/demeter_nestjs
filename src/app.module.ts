@@ -1,4 +1,7 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import configuration from './config/configuration';
+
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
 import { AppController } from './app.controller';
@@ -8,7 +11,11 @@ import { DogsService } from './dogs/dogs.service';
 import { DogsModule } from './dogs/dogs.module';
 
 @Module({
-  imports: [CatsModule, DogsModule],
+  imports: [
+    ConfigModule.forRoot({ envFilePath: '.env', load: [configuration] }),
+    CatsModule,
+    DogsModule
+  ],
   controllers: [AppController],
   providers: [AppService, DogsService]
 })
