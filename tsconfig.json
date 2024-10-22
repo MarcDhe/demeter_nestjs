@@ -12,6 +12,7 @@
     "baseUrl": "./",
     "incremental": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "strictNullChecks": true // for Zod source : zod library requires the strictNullChecks configuration to be enabled in your tsconfig.json file.
   }
 }
