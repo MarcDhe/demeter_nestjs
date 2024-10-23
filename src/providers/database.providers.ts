@@ -1,21 +1,39 @@
 import { DataSource } from 'typeorm';
+import { ConfigService } from '@nestjs/config';
 
 export const databaseProviders = [
   {
     provide: 'DATA_SOURCE',
-    useFactory: async () => {
+    useFactory: async (configService: ConfigService) => {
       const dataSource = new DataSource({
-        type: 'mysql',
-        host: 'localhost',
-        port: 3306,
-        username: 'root',
-        password: 'root',
-        database: 'test',
-        entities: [`${__dirname}/../**/*.entity{.ts,.js}`],
-        synchronize: true
+        type: 'postgres',
+        host: configService.get<string>('database.host'),
+        port: configService.get<number>('database.port'),
+        username: configService.get<string>('database.username'),
+        password: configService.get<string>('database.password'),
+        database: configService.get<string>('database.databaseName'), // ensure database key is present
+        entities: [`${__dirname}/../**/*.entity{.ts,.js}`], // import all "model" in /entity or do [USer, Company , ...]
+        synchronize: true,
+        logging: false,
+        migrations: [],
+        subscribers: []
       });
 
-      return dataSource.initialize();
-    }
+      return dataSource
+        .initialize()
+        .then(() => {
+          console.log('TYORM CONNECTION DATABASE SUCCESS ');
+        })
+        .catch((error) => {
+          console.log('TYORM CONNECTION DATABASE FAIL ');
+
+          console.log(error);
+        });
+    },
+    // Inject ConfigService into the factory function
+    inject: [ConfigService]
   }
 ];
+
+// get an environment variable
+// const dbUser = this.configService.get<string>('DATABASE_USER');
