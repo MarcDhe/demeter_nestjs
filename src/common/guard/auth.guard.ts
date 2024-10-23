@@ -8,7 +8,7 @@ export class AuthGuard implements CanActivate {
     return this.validateRequest(request);
   }
 
-  private validateRequest(request: any): boolean | Promise<boolean> | Observable<boolean> {
+  validateRequest(request: any): boolean | Promise<boolean> | Observable<boolean> {
     return true;
   }
 }

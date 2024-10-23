@@ -13,9 +13,9 @@ export const databaseProviders = [
         password: configService.get<string>('database.password'),
         database: configService.get<string>('database.databaseName'), // ensure database key is present
         entities: [`${__dirname}/../**/*.entity{.ts,.js}`], // import all "model" in /entity or do [USer, Company , ...]
-        synchronize: true,
+        // synchronize: true, // not for production
         logging: false,
-        migrations: [],
+        migrations: [`${__dirname}/migrations/*{.ts,.js}`],
         subscribers: []
       });
 
